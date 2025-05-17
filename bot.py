@@ -1,3 +1,22 @@
+# dummy_server.py - Webサービスとして動かす
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+def run_dummy_server():
+    class DummyHandler(BaseHTTPRequestHandler):
+        def do_GET(self):
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b"Bot is running")
+
+    server = HTTPServer(('0.0.0.0', 10000), DummyHandler)
+    server.serve_forever()
+
+threading.Thread(target=run_dummy_server, daemon=True).start()
+
+
+
+
 import pytchat
 import requests
 import re
