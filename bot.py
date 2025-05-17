@@ -44,17 +44,7 @@ chat = pytchat.create(video_id=VIDEO_ID)
 #                 requests.post(DISCORD_WEBHOOK_URL, json={"content": match})
 
 
-# comments=[
-#     "成果なしでした。船長これからおろしていきます。船員は各自おりてください。",
-#     "​​せむしさんの虹マニュ通ってます",
-#     "5p虹ライチュウと馬の疑似疑似byりょうご八つ裂き", 
-#     "2p虹ダダリン、ARキュワワーの擬似擬似、検証お願いしたいです", 
-#     "1P虹カニ通過、ひーとーしー、です。"
 
-
-
-
-# ]
 
 
 
