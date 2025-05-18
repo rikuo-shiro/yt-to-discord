@@ -49,15 +49,30 @@ keywords_hit = r"(通過|通った|通ってる|通ってます|擬似)"
 # ========== 関数定義 ==========
 
 def get_live_video_id():
-    url = (
-        f"https://www.googleapis.com/youtube/v3/search?"
-        f"part=snippet&channelId={CHANNEL_ID}&type=video&eventType=live&key={API_KEY}"
-    )
-    resp = requests.get(url).json()
-    items = resp.get("items", [])
-    if items:
-        return items[0]["id"]["videoId"]
+    try:
+        url = (
+            f"https://www.googleapis.com/youtube/v3/search?"
+            f"part=snippet&channelId={CHANNEL_ID}&type=video&eventType=live&key={API_KEY}"
+        )
+        resp = requests.get(url)
+        if resp.status_code != 200:
+            print(f"❌ APIエラー {resp.status_code}: {resp.text}", flush=True)
+            return None
+
+        data = resp.json()
+        items = data.get("items", [])
+        if items:
+            video_id = items[0]["id"]["videoId"]
+            print(f"✅ ライブ検出: {video_id}", flush=True)
+            return video_id
+        else:
+            print("🔍 ライブなし（items 空）", flush=True)
+
+    except Exception as e:
+        print(f"❌ get_live_video_idで例外発生: {e}", flush=True)
+
     return None
+
 
 def send_discord(msg):
     try:
@@ -119,17 +134,16 @@ def main():
     print("🔍 ライブ配信を監視中...", flush=True)
 
     while True:
-        video_id = None
+        print(f"🕒 チェック開始: {time.strftime('%Y-%m-%d %H:%M:%S')}", flush=True)
         video_id = get_live_video_id()
-        # if not video_id:
-        print("⏳ ライブ未検出、再確認待機中...", flush=True)
 
         if video_id:
             monitor_chat(video_id)
-            print("📴 ライブ配信が終了、再監視へ戻る",flush=True)
+            print("📴 ライブ配信が終了、再監視へ戻る", flush=True)
         else:
-            print("⚠ 検出できず。4分後に再試行",flush=True)
-            time.sleep(240)
+            print("⚠ 検出できず。4分後に再試行", flush=True)
+
+        time.sleep(240)
 
 
 
