@@ -133,7 +133,7 @@ def monitor_chat(video_id):
 def main():
     print("🔍 ライブ配信を監視中...", flush=True)
     sleep_time=9500
-    minutes=9500/60
+    minutes=round(sleep_time/60)
 
     while True:
         print(f"PORT環境変数の値: {os.environ.get('PORT')}", flush=True)
