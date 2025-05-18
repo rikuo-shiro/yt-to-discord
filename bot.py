@@ -1,21 +1,25 @@
 # --- Renderの無料Webサービス対策用 ダミーWebサーバー ---
 import threading
+import os
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 def run_dummy_server():
+    port = int(os.environ.get("PORT", 8000))  # Renderから渡されるポートを取得
     class DummyHandler(BaseHTTPRequestHandler):
         def do_GET(self):
             self.send_response(200)
             self.end_headers()
             self.wfile.write(b"Bot is running")
-    server = HTTPServer(('0.0.0.0', 10000), DummyHandler)
+
+    server = HTTPServer(('0.0.0.0', port), DummyHandler)
+    print(f"🌐 ダミーWebサーバー起動中（ポート: {port}）", flush=True)
     server.serve_forever()
 
 threading.Thread(target=run_dummy_server, daemon=True).start()
 
 
 
-import os
+
 import requests
 import pytchat
 import time
@@ -124,8 +128,8 @@ def main():
             monitor_chat(video_id)
             print("📴 ライブ配信が終了、再監視へ戻る",flush=True)
         else:
-            print("⚠ 検出できず。25分後に再試行",flush=True)
-            time.sleep(1500)
+            print("⚠ 検出できず。4分後に再試行",flush=True)
+            time.sleep(240)
 
 
 
