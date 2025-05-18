@@ -112,8 +112,8 @@ def monitor_chat(video_id):
 
 
 def main():
-    # print("🔍 ライブ配信を監視中...")
-    log.console("🔍 ライブ配信を監視中...")
+    print("🔍 ライブ配信を監視中...", flush=True)
+
     while True:
         video_id = None
         video_id = get_live_video_id()
