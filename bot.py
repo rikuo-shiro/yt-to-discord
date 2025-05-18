@@ -88,15 +88,15 @@ def monitor_chat(video_id):
                     current_code_batch[author] = []
                     last_message_was_code = False
 
-                if re.search(keywords_reset, message):
-                    if author in user_latest_codes:
-                        codes = "\n".join(user_latest_codes[author])
-                        send_discord(f"🔁 {author} の再申請対象コード:\n{codes}")
+                # if re.search(keywords_reset, message):
+                #     if author in user_latest_codes:
+                #         codes = "\n".join(user_latest_codes[author])
+                #         send_discord(f"🔁 {author} の再申請対象コード:\n{codes}")
 
-                if re.search(keywords_hit, message):
-                    if author in user_latest_codes:
-                        codes = "\n".join(user_latest_codes[author])
-                        send_discord(f"🎉 {author} の当コード:\n{codes}")
+                # if re.search(keywords_hit, message):
+                #     if author in user_latest_codes:
+                #         codes = "\n".join(user_latest_codes[author])
+                #         send_discord(f"🎉 {author} の当コード:\n{codes}")
 
 # ========== メインループ ==========
 # def main():
