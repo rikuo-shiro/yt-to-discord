@@ -122,7 +122,7 @@ def main():
         video_id = None
         video_id = get_live_video_id()
         # if not video_id:
-        #     print("⏳ ライブ未検出、再確認待機中...")
+        print("⏳ ライブ未検出、再確認待機中...", flush=True)
 
         if video_id:
             monitor_chat(video_id)
