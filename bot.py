@@ -99,17 +99,32 @@ def monitor_chat(video_id):
                         send_discord(f"🎉 {author} の当たコード:\n{codes}")
 
 # ========== メインループ ==========
+# def main():
+#     print("🔍 ライブ配信を監視中...")
+#     detected = False
+#     while True:
+#         if not detected:
+#             video_id = get_live_video_id()
+#             if video_id:
+#                 detected = True
+#                 monitor_chat(video_id)
+#         time.sleep(1500)
+
+
 def main():
     print("🔍 ライブ配信を監視中...")
-    detected = False
     while True:
-        if not detected:
-            video_id = get_live_video_id()
-            if video_id:
-                detected = True
-                monitor_chat(video_id)
-        time.sleep(1500)
+        video_id = None
+        video_id = get_live_video_id()
+        # if not video_id:
+        #     print("⏳ ライブ未検出、再確認待機中...")
 
+        if video_id:
+            monitor_chat(video_id)
+            print("📴 ライブ配信が終了、再監視へ戻る")
+        else:
+            print("⚠ 検出できず。25分後に再試行")
+            time.sleep(1500)
 
 
 
