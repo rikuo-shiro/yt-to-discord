@@ -64,7 +64,7 @@ def send_discord(msg):
 def monitor_chat(video_id):
     global last_author, last_message_was_code
     chat = pytchat.create(video_id=video_id)
-    print(f"🎥 ライブ開始検出！video_id: {video_id}")
+    print(f"🎥 ライブ開始検出！video_id: {video_id}",flush=True)
     send_discord(f"🚨 ライブ開始: https://www.youtube.com/watch?v={video_id}")
 
     while chat.is_alive():
@@ -122,9 +122,9 @@ def main():
 
         if video_id:
             monitor_chat(video_id)
-            print("📴 ライブ配信が終了、再監視へ戻る")
+            print("📴 ライブ配信が終了、再監視へ戻る",flush=True)
         else:
-            print("⚠ 検出できず。25分後に再試行")
+            print("⚠ 検出できず。25分後に再試行",flush=True)
             time.sleep(1500)
 
 
