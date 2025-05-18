@@ -145,7 +145,7 @@ def main():
         else:
             print("⚠ 検出できず。25分後に再試行", flush=True)
 
-        time.sleep(1500)
+        time.sleep(9500)
 
 
 
