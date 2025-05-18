@@ -132,7 +132,8 @@ def monitor_chat(video_id):
 
 def main():
     print("🔍 ライブ配信を監視中...", flush=True)
-    
+    sleep_time=9500
+    minutes=9500/60
 
     while True:
         print(f"PORT環境変数の値: {os.environ.get('PORT')}", flush=True)
@@ -143,9 +144,9 @@ def main():
             monitor_chat(video_id)
             print("📴 ライブ配信が終了、再監視へ戻る", flush=True)
         else:
-            print("⚠ 検出できず。25分後に再試行", flush=True)
+            print(f"⚠ 検出できず。{minutes}分後に再試行", flush=True)
 
-        time.sleep(9500)
+        time.sleep(sleep_time)
 
 
 
