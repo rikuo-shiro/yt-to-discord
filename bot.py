@@ -96,7 +96,7 @@ def monitor_chat(video_id):
                 if re.search(keywords_hit, message):
                     if author in user_latest_codes:
                         codes = "\n".join(user_latest_codes[author])
-                        send_discord(f"🎉 {author} の当たりコード:\n{codes}")
+                        send_discord(f"🎉 {author} の当たコード:\n{codes}")
 
 # ========== メインループ ==========
 def main():
