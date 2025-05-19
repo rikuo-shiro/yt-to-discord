@@ -132,7 +132,7 @@ def monitor_chat(video_id):
 
 def main():
     print("🔍 ライブ配信を監視中...", flush=True)
-    sleep_time=9500
+    sleep_time=1500
     minutes=round(sleep_time/60)
 
     while True:
