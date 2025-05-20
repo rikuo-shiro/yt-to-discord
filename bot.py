@@ -84,10 +84,37 @@ def send_discord(msg):
     except:
         print("⚠ Discord送信失敗")
 
+# def monitor_chat(video_id):
+#     global last_author, last_message_was_code
+#     chat = pytchat.create(video_id=video_id)
+#     print("🎥 ライブ開始検出！",flush=True)
+#     send_discord(f"🚨 ライブ開始: https://www.youtube.com/watch?v={video_id}")
+
+#     while chat.is_alive():
+#         for c in chat.get().sync_items():
+#             author = c.author.name
+#             message = c.message.strip()
+#             codes = re.findall(r"\d{16}", message)
+
+#             if codes:
+#                 if author != last_author:
+#                     send_discord(f"👤 {author}")
+#                     last_author = author
+#                 for code in codes:
+#                     send_discord(code)
+#                     current_code_batch.setdefault(author, []).append(code)
+#                 last_message_was_code = True
+
+#             else:
+#                 if last_message_was_code and author in current_code_batch:
+#                     user_latest_codes[author] = current_code_batch[author]
+#                     current_code_batch[author] = []
+#                     last_message_was_code = False
+
 def monitor_chat(video_id):
     global last_author, last_message_was_code
     chat = pytchat.create(video_id=video_id)
-    print("🎥 ライブ開始検出！",flush=True)
+    print("🎥 ライブ開始検出！", flush=True)
     send_discord(f"🚨 ライブ開始: https://www.youtube.com/watch?v={video_id}")
 
     while chat.is_alive():
@@ -96,6 +123,7 @@ def monitor_chat(video_id):
             message = c.message.strip()
             codes = re.findall(r"\d{16}", message)
 
+            # ✅ コードが含まれているとき（通常の処理）
             if codes:
                 if author != last_author:
                     send_discord(f"👤 {author}")
@@ -105,35 +133,36 @@ def monitor_chat(video_id):
                     current_code_batch.setdefault(author, []).append(code)
                 last_message_was_code = True
 
+            # ✅ コードが含まれないとき（後処理や当たりチェック）
             else:
                 if last_message_was_code and author in current_code_batch:
                     user_latest_codes[author] = current_code_batch[author]
                     current_code_batch[author] = []
                     last_message_was_code = False
 
-                # if re.search(keywords_reset, message):
-                #     if author in user_latest_codes:
-                #         codes = "\n".join(user_latest_codes[author])
-                #         send_discord(f"🔁 {author} の再申請対象コード:\n{codes}")
+            # ✅ 当たりコメントの処理（コード含まれていても無視して送信）
+            if re.search(keywords_hit, message):
+                send_discord(f"🎯 {author}")
+                send_discord(f"💬 {message}")
 
-                # if re.search(keywords_hit, message):
-                #     if author in user_latest_codes:
-                #         codes = "\n".join(user_latest_codes[author])
-                #         send_discord(f"🎉 {author} の当コード:\n{codes}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # ========== メインループ ==========
-# def main():
-#     print("🔍 ライブ配信を監視中...")
-#     detected = False
-#     while True:
-#         if not detected:
-#             video_id = get_live_video_id()
-#             if video_id:
-#                 detected = True
-#                 monitor_chat(video_id)
-#         time.sleep(1500)
-
-
 def main():
     print("🔍 ライブ配信を監視中...", flush=True)
     sleep_time=1500
