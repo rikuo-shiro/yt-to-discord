@@ -84,7 +84,7 @@ def monitor_chat(video_id):
     global last_author, last_message_was_code
     chat = pytchat.create(video_id=video_id)
     print("🎥 ライブ開始検出！",flush=True)
-    send_discord(f"🚨 ライブ開始:https://www.youtube.com/watch?v={video_id}")
+    send_discord(f"🚨 ライブ開始: https://www.youtube.com/watch?v={video_id}")
 
     while chat.is_alive():
         for c in chat.get().sync_items():
