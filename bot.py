@@ -167,10 +167,33 @@ def monitor_chat(video_id):
 
 
 # ========== メインループ ==========
+# def main():
+#     print("🔍 ライブ配信を監視中...", flush=True)
+#     sleep_time=1500
+#     minutes=round(sleep_time/60)
+
+#     while True:
+#         print(f"PORT環境変数の値: {os.environ.get('PORT')}", flush=True)
+#         print(f"🕒 チェック開始: {time.strftime('%Y-%m-%d %H:%M:%S')}", flush=True)
+#         video_id = get_live_video_id()
+
+#         if video_id:
+#             monitor_chat(video_id)
+#             print("📴 ライブ配信が終了、再監視へ戻る", flush=True)
+#         else:
+#             print(f"⚠ 検出できず。{minutes}分後に再試行", flush=True)
+
+#         time.sleep(sleep_time)
+
+
 def main():
     print("🔍 ライブ配信を監視中...", flush=True)
-    sleep_time=1500
-    minutes=round(sleep_time/60)
+    default_sleep = 1500
+    short_sleep = 60  # 最初の1分チェック用
+    next_sleep = default_sleep
+    minutes = round(default_sleep / 60)
+
+    just_finished = False
 
     while True:
         print(f"PORT環境変数の値: {os.environ.get('PORT')}", flush=True)
@@ -180,10 +203,19 @@ def main():
         if video_id:
             monitor_chat(video_id)
             print("📴 ライブ配信が終了、再監視へ戻る", flush=True)
+            send_discord("🚨🚨🚨ライブ終了🚨🚨🚨")
+            next_sleep = short_sleep  # 次の1回だけ短く
+            just_finished = True
         else:
+            # if just_finished:
+            #     print("🕐 直前にライブがあったため、1分後に再チェック", flush=True)
+            #     just_finished = False
+            # else:
             print(f"⚠ 検出できず。{minutes}分後に再試行", flush=True)
+            next_sleep = default_sleep
 
-        time.sleep(sleep_time)
+        time.sleep(next_sleep)
+
 
 
 
