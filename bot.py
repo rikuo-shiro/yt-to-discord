@@ -82,7 +82,7 @@ def send_discord(msg):
     try:
         requests.post(DISCORD_WEBHOOK_URL, json={"content": msg})
     except:
-        print("⚠ Discord送信失敗")
+        print("⚠ Discord 送信失敗")
 
 # def monitor_chat(video_id):
 #     global last_author, last_message_was_code
