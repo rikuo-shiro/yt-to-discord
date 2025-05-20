@@ -10,6 +10,10 @@ def run_dummy_server():
             self.send_response(200)
             self.end_headers()
             self.wfile.write(b"Bot is running")
+        def do_HEAD(self):
+            self.send_response(200)
+            self.end_headers()
+
 
     server = HTTPServer(('0.0.0.0', port), DummyHandler)
     print(f"🌐 ダミーWebサーバー起動中（ポート: {port}）", flush=True)
