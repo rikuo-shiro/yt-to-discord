@@ -142,8 +142,8 @@ def monitor_chat(video_id):
 
             # ✅ 当たりコメントの処理（コード含まれていても無視して送信）
             if re.search(keywords_hit, message):
-                send_discord(f"🎯 {author}")
-                send_discord(f"💬 {message}")
+                send_discord(f"⭕️{author} :{message}")
+                # send_discord(f"💬 {message}")
 
 
 
