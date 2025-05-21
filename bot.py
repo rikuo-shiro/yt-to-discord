@@ -181,10 +181,12 @@ def main():
         if video_id:
             monitor_chat(video_id)
             print("📴 ライブ配信が終了、再監視へ戻る", flush=True)
+            time.sleep(60)
         else:
             print(f"⚠ 検出できず。{minutes}分後に再試行", flush=True)
+            time.sleep(sleep_time)
 
-        time.sleep(sleep_time)
+        # time.sleep(sleep_time)
 
 
 # def main():
