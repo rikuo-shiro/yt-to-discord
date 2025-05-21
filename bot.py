@@ -176,7 +176,8 @@ def main():
     while True:
         print(f"PORT環境変数の値: {os.environ.get('PORT')}", flush=True)
         print(f"🕒 チェック開始: {time.strftime('%Y-%m-%d %H:%M:%S')}", flush=True)
-        video_id = get_live_video_id()
+        # video_id = get_live_video_id()
+        video_id = False 
 
         if video_id:
             monitor_chat(video_id)
